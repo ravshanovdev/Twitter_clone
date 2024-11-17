@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile LIst</title>
+</head>
+
+{% block content %}
+<body>
+<h1>{{ profile.user.username }}'s followers</h1>
+
+{% for p in profile.followed_by.all %}
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      {% if p.profile_image %}
+        <img src="{{ p.profile_image.url }}" class="img-fluid rounded-start" alt="{{ profile.user.username }}">
+      {% else %}
+        <img src="{% static 'images/default-profile.jpg' %}" class="img-fluid rounded-start" alt="Profile Photo">
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ p.user }}
+        {% if p in profile.follows.all %}
+           <a href="{% url 'unfollow' p.user.id %}" >
+              <i class="fa fa-user-minus small" style="color:red"></i>
+           </a>
+
+        {% else %}
+
+           <a href="{% url 'follow' p.user.id %}" >
+              <i class="fa fa-user-plus small" style="color:blue"></i>
+            </a>
+
+        {% endif %}
+        </h5>
+        <p class="card-text"><a href="{% url 'profile' p.user.id %}">@{{ p.user.username| lower }}</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+    <br/><br/>
+{% endfor %}
+
+
+
+</body>
+{% endblock %}
+</html>

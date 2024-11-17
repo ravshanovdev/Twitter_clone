@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .register-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .register-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .register-form form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .register-form form .form-group {
+    margin-bottom: 10px;
+  }
+
+  .register-form form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .register-form form input[type="text"],
+  .register-form form input[type="email"],
+  .register-form form input[type="password"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .register-form form .btn-register {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .register-form form .btn-register:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<div class="container">
+  <div class="register-form">
+    <h3>Register</h3>
+    <form method="POST" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-outline-success">Register</button>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

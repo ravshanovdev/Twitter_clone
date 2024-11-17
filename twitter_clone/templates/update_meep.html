@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <title>home</title>
+</head>
+
+<body>
+<div class="container text-center">
+
+
+
+
+
+
+    <div class="alert alert-success" role="alert">
+<div class="container">
+     <div class="row">
+        <div class="col-2">
+                  {% if meep.user.profile.profile_image %}
+                        <img src="{{ meep.user.profile.profile_image.url }}" class="rounded-circle" alt="{{ profile.user.username }}" style="max-width: 100px; max-height: 100px;">
+                  {% else %}
+                        <img src="{% static 'images/default-profile.jpg' %}" class="rounded-circle" alt="Profile Photo" style="max-width: 100px; max-height: 100px;">
+                  {% endif %}
+        </div>
+
+
+
+         <div class="col-12">
+            <p>{{ meep.user }}'s Meep</p>
+            <p>{{ meep.summary }}</p>
+            <p>{{ meep.body }}</p>
+             - {{ meep.number_of_likes }} Likes -
+             {% if user in meep.likes.all %}
+                <a href="{% url 'meep_like' meep.id %}" type="submit" class="btn btn-danger">
+                    <i class="fa-solid fa-thumbs-down"></i>
+                </a>
+
+             {% else %}
+                <a href="{% url 'meep_like' meep.id %}"  type="submit" class="btn btn-success">
+                    <i class="fa-regular fa-thumbs-up"></i>
+                </a>
+
+             {% endif %}
+         </div>
+
+        <hr>
+        <small class="text-muted">
+            <p class="mb-0">{{ meep.created_at }}</p>
+            <a class="icon-link icon-link-hover" style="--bs-link-hover-color-rgb: 25, 135, 84;" href="{% url 'profile' meep.user_id %}">
+                By @{{ meep.user }}
+                <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg>
+            </a>
+
+
+
+        </small>
+    </div>
+    </div>
+</div>
+
+
+    </div>
+
+    <div class="col-4">
+        <br></br><br>
+        {% if form %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-outline-success">Update Meep</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+</body>
+{% endblock %}
